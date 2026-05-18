@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JOGS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <nav class="jogs-nav">
+    <a href="#hero" class="nav-brand-img">
+      <img src="Images/jogs_nav.png" alt="JOGS Logo" class="brand-logo-img">
+    </a>
+    
+    <ul class="nav-links main-nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#concerts">Concerts</a></li>
+      <li><a href="#merch">Merch</a></li>
+      <li><a href="#music">Music</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about"    onclick="closeMenu()">About</a>
+    <a href="#concerts" onclick="closeMenu()">Concerts</a>
+    <a href="#merch"    onclick="closeMenu()">Merch</a>
+    <a href="#music"    onclick="closeMenu()">Music</a>
+    <a href="#gallery"  onclick="closeMenu()">Gallery</a>
+  </div>
+
+  <div id="hero">
+    <div class="hero-logo-wrap">
+      <img src="Images/Logo.jpeg" alt="JOGS symbol" class="hero-symbol"
+           onerror="this.style.display='none'; document.getElementById('hero-fallback').style.display='block'">
+      <div id="hero-fallback" class="hero-symbol-fallback fallback-hide">✦</div>
+      
+      <img src="Images/JustOrdinaryGroupStuff.png" alt="JOGS" class="hero-wordmark"
+           onerror="this.style.display='none'; document.getElementById('hero-text-fallback').style.display='block'">
+      <div id="hero-text-fallback" class="hero-text-fallback fallback-hide">JOGS</div>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="reveal">
+      <h2 class="section-title">About</h2>
+    </div>
+
+    <div class="reveal delay-1">
+      <p class="about-bio">
+        What do you get by putting together five people with a passion for rock music? <br>
+        Just Ordinary Group Stuff.<br><br>
+        Formed in 2020, the band proves they're not ordinary at all: each member's influences
+        blend into songs that carry shades of many genres and reflect the contemporary energy
+        of their hometown, Milan.
+      </p>
+    </div>
+
+    <div class="members-container reveal delay-2">
+      <div class="members-row">
+        <div class="member-card">
+          <div class="member-photo-wrap">
+            <img src="Images/Foto_Marghe.jpg" alt="Margherita Mischi"
+                 onerror="this.parentElement.innerHTML='<div class=\'member-photo-placeholder\'>photo</div>'">
+          </div>
+          <div class="member-name"><a href="https://www.instagram.com/margarita.al.whisky?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Margherita Mischi</a></div>
+          <div class="member-role">Vocals</div>
+        </div>
+
+        <div class="member-card">
+          <div class="member-photo-wrap">
+            <img src="Images/Foto_Gatto.jpg" alt="Simone Gattoni"
+                 onerror="this.parentElement.innerHTML='<div class=\'member-photo-placeholder\'>photo</div>'">
+          </div>
+          <div class="member-name"><a href="https://www.instagram.com/easily._.amused?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Simone Gattoni</a></div>
+          <div class="member-role">Lead Guitar</div>
+        </div>
+
+        <div class="member-card">
+          <div class="member-photo-wrap">
+            <img src="Images/Foto_Luke.jpg" alt="Luca Bagnaschino"
+                 onerror="this.parentElement.innerHTML='<div class=\'member-photo-placeholder\'>photo</div>'">
+          </div>
+          <div class="member-name"><a href="https://www.instagram.com/lucabagnaschino?igsh=a21xc2Vvb2RpZ2Fv&utm_source=qr">Luca Bagnaschino</a></div>
+          <div class="member-role">Rhythm Guitar</div>
+        </div>
+      </div>
+
+      <div class="members-row">
+        <div class="member-card">
+          <div class="member-photo-wrap">
+            <img src="Images/Foto_Fede.jpeg" alt="Federico Mango"
+                 onerror="this.parentElement.innerHTML='<div class=\'member-photo-placeholder\'>photo</div>'">
+          </div>
+          <div class="member-name"><a href="https://www.instagram.com/_fedemango_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Federico Mango</a></div>
+          <div class="member-role">Bass</div>
+        </div>
+
+        <div class="member-card">
+          <div class="member-photo-wrap">
+            <img src="Images/Foto_Borla.jpg" alt="Matteo Borlacchi"
+                 onerror="this.parentElement.innerHTML='<div class=\'member-photo-placeholder\'>photo</div>'">
+          </div>
+          <div class="member-name"><a href="https://www.instagram.com/borlacchi?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Matteo Borlacchi</a></div>
+          <div class="member-role">Drums</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="concerts">
+    <div class="reveal">
+      <h2 class="section-title">Concerts</h2>
+    </div>
+
+    <table class="shows-list reveal delay-1">
+      <tbody>
+        <tr>
+          <td>24/05</td>
+          <td><a href="https://www.q-hub.it/" target="_blank" class="venue-link">Q-HUB</a></td>
+          <td>Via Mecenate, 76B/31, 20138 Milano MI</td>
+          <td><a href="javascript:void(0)" class="ticket-link open-modal-trigger">→ entry price 10€</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table class="shows-list reveal delay-1">
+      <tbody>
+        <tr>
+          <td>28/05</td>
+          <td><a href="https://barrios.it/" target="_blank" class="venue-link">Barrio's</a></td>
+          <td>Piazza Donne Partigiane, 20142 Milano MI</td>
+          <td><a href="javascript:void(0)" class="ticket-link open-modal-trigger">→ free entry</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="posters-grid reveal delay-2">
+      <div class="poster-card">
+        <img src="Images/Concerto1.jpeg" alt="Poster Concerto 1"
+             onerror="this.parentElement.innerHTML='<div class=\'poster-placeholder\'><span class=\'icon\'>◻</span><span>show_poster_1.jpg</span></div>'">
+      </div>
+      <div class="poster-card">
+        <img src="Images/Concerto2.JPG" alt="Poster Concerto 2"
+             onerror="this.parentElement.innerHTML='<div class=\'poster-placeholder\'><span class=\'icon\'>◻</span><span>show_poster_2.jpg</span></div>'">
+      </div>
+      <div class="poster-card">
+        <img src="Images/Concerto3.jpeg" alt="Poster Concerto 3"
+             onerror="this.parentElement.innerHTML='<div class=\'poster-placeholder\'><span class=\'icon\'>◻</span><span>show_poster_3.jpg</span></div>'">
+      </div>
+    </div>
+  </section>
+
+  <section id="merch">
+    <div class="reveal">
+      <h2 class="section-title">Merch</h2>
+    </div>
+    <div class="merch-coming-soon-wrap reveal delay-1">
+      <img src="Images/Coming_soon.png" alt="Merch Fogs Coming Soon" class="merch-placeholder-img">
+    </div>
+  </section>
+
+  <section id="music">
+    <div class="reveal">
+      <h2 class="section-title">Music</h2>
+    </div>
+
+    <div class="music-grid reveal delay-1">
+      
+      <div class="single-card">
+        <div class="single-cover">
+          <img src="Images/1.png" alt="Single 01"
+               onerror="this.parentElement.innerHTML='<div class=\'cover-placeholder\'>single_1.jpg</div>'">
+        </div>
+        <div class="single-title">Decisions</div>
+        <div class="single-description">A powerful rock track that mixes modern vibes with classic energy — the sound that defines JOGS.</div>
+        <div class="single-links">
+          <a href="https://open.spotify.com/intl-it/track/6L52iW2ShQGJ9amqtSd2Bg?si=d9e990dc20484c6b" target="_blank" rel="noopener">Spotify</a>
+          <a href="https://music.apple.com/it/song/decisions/1725746869" target="_blank" rel="noopener">Apple Music</a>
+          <a href="https://music.youtube.com/watch?v=oELWtZ0rSGc&si=IKzAi33fcwsW882J" target="_blank" rel="noopener">YouTube Music</a>
+        </div>
+      </div>
+
+      <div class="single-card">
+        <div class="single-cover">
+          <img src="Images/2.png" alt="Single 02"
+               onerror="this.parentElement.innerHTML='<div class=\'cover-placeholder\'>single_2.jpg</div>'">
+        </div>
+        <div class="single-title">Shining Hill</div>
+        <div class="single-description">Explosive riffs and deep lyrics — a song that captures the raw intensity and emotion of the band.</div>
+        <div class="single-links">
+          <a href="https://open.spotify.com/intl-it/track/7dw8Papn9fH3EzRVuZ7SWD?si=0885f66bb7bc4fac" target="_blank" rel="noopener">Spotify</a>
+          <a href="https://music.apple.com/it/song/shining-hill-where-is-my-paradise/1756339834" target="_blank" rel="noopener">Apple Music</a>
+          <a href="https://music.youtube.com/watch?v=KlUOYqlkL-k&si=OZwcCqIv7HFSvzSu" target="_blank" rel="noopener">YouTube Music</a>
+        </div>
+      </div>
+
+      <div class="single-card">
+        <div class="single-cover">
+          <img src="Images/3.heic" alt="Single 03"
+               onerror="this.parentElement.innerHTML='<div class=\'cover-placeholder\'>single_3.jpg</div>'">
+        </div>
+        <div class="single-title">Momentum</div>
+        <div class="single-description">A gritty and emotional track that blends distorted guitars with introspective lyrics.</div>
+        <div class="single-links">
+          <a href="https://open.spotify.com/intl-it/track/3fbddgAmwGEjg39TX0yqNH?si=412cd06934794b83" target="_blank" rel="noopener">Spotify</a>
+          <a href="https://music.apple.com/it/song/momentum/1872118799" target="_blank" rel="noopener">Apple Music</a>
+          <a href="https://music.youtube.com/watch?v=C0gb75vDsuo&si=5Lf4IhmUt1KyNGqV" target="_blank" rel="noopener">YouTube Music</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+<section id="gallery">
+    <div class="reveal">
+      <h2 class="section-title">Gallery</h2>
+    </div>
+
+    <div class="gallery-grid reveal delay-1">
+      <div class="gallery-item photo">
+        <img src="Images/image1.jpg" alt="JOGS Live Group"
+             onerror="this.parentElement.innerHTML='<span>image1.jpg</span>'">
+      </div>
+
+      <div class="gallery-item photo">
+        <img src="Images/image2.png" alt="JOGS Live Blue Lights"
+             onerror="this.parentElement.innerHTML='<span>image2.png</span>'">
+      </div>
+
+      <div class="gallery-item photo">
+        <img src="Images/image3.jpg" alt="JOGS Studio Portrait"
+             onerror="this.parentElement.innerHTML='<span>image3.jpg</span>'">
+      </div>
+
+      <div class="gallery-item photo">
+        <img src="Images/image4.png" alt="JOGS Guitar Live Red"
+             onerror="this.parentElement.innerHTML='<span>image4.png</span>'">
+      </div>
+
+      <div class="gallery-item photo">
+        <img src="Images/image5.jpg" alt="JOGS Club Backstage"
+             onerror="this.parentElement.innerHTML='<span>image5.jpg</span>'">
+      </div>
+
+      <div class="gallery-item photo">
+        <img src="Images/image6.jpg" alt="JOGS Live Shadow"
+             onerror="this.parentElement.innerHTML='<span>image6.jpg</span>'">
+      </div>
+    </div>
+
+    <div class="gallery-follow-text reveal delay-2">
+      Check out our live videos on
+      <a href="https://www.instagram.com/jogsband?..." target="_blank" rel="noopener" class="social-active-link">Instagram</a> & 
+      <a href="https://www.tiktok.com/@jogsband?..." target="_blank" rel="noopener" class="social-active-link">TikTok</a>
+    </div>
+  </section>
+
+<footer>
+    <div class="footer-section-title">Booking & Info</div>
+    
+    <div class="footer-email-row">
+      <span class="footer-email">justordinarygroupstuff@gmail.com</span>
+    </div>
+    
+    <div class="footer-section-title footer-social-title">Follow us on</div>
+    
+    <div class="footer-links">
+      <a href="https://open.spotify.com/intl-it/artist/6y92AyMk3NTZzm07xoged4?si=HvC9uwfITq6YAJacvyd-iw" target="_blank" rel="noopener">Spotify</a>
+      <a href="https://music.apple.com/it/artist/jogs/1725551430" target="_blank" rel="noopener">Apple Music</a>
+      <a href="https://www.youtube.com/@JOGSband" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.instagram.com/jogsband?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.tiktok.com/@jogsband?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener">TikTok</a>
+    </div>
+  </footer>
+
+  <div class="modal-overlay" id="infoModal">
+    <div class="modal-box">
+     <p>For more info, <a href="..." target="_blank">click here</a> to send us a message on Instagram!</p>
+      <button class="close-btn" id="closeModalBtn">Close</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

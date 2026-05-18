@@ -1,0 +1,893 @@
+/* ==========================================================================
+   1. RESET & GLOBAL VARIABLES
+   ========================================================================== */
+*, *::before, *::after { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
+
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --red: #00f3ff !important;        /* AZZURRO NEON VIBRANTE */
+  --red-bright: #00eeff !important; /* AZZURRO GLITCH HOVER */
+  --font-display: 'Special Elite', cursive;
+  --font-body: 'Courier Prime', monospace;
+}
+
+html { 
+  scroll-behavior: smooth; 
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  cursor: default;
+  overflow-x: hidden;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--white); }
+
+/* Scanlines Effect */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255,255,255,0.018) 2px,
+    rgba(255,255,255,0.018) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ==========================================================================
+   2. TYPOGRAPHY & LINKS
+   ========================================================================== */
+h1, h2, h3, h4 { 
+  font-family: var(--font-display); 
+  font-weight: normal; 
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 3rem) !important;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 3rem;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  height: 1px;
+  background: var(--red);
+  width: 100%;
+  margin-top: 0.4rem;
+}
+
+a {
+  color: var(--white);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+a:hover {
+  color: var(--red-bright);
+  animation: flicker 0.15s ease;
+}
+
+@keyframes flicker {
+  0%   { opacity: 1; }
+  40%  { opacity: 0.6; }
+  70%  { opacity: 0.85; }
+  100% { opacity: 1; }
+}
+
+/* Structural Section Box */
+section {
+  padding: 10rem 2.5rem 7rem 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ─── ANIMAZIONI DI COMPARSA (REVEAL - VIA DI MEZZO) ─────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  /* 0.7s è il tempo ideale: fluido, visibile ma non pesante */
+  transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
+              transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ritardi leggermente calibrati per creare un bell'effetto a cascata ordinato */
+.delay-1 { transition-delay: 0.1s; } 
+.delay-2 { transition-delay: 0.2s; } 
+.delay-3 { transition-delay: 0.3s; }
+
+/* ==========================================================================
+   3. NAVIGATION BAR
+   ========================================================================== */
+nav.jogs-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 90px !important;
+  padding: 0 3rem !important; 
+  background: var(--black) !important;
+  border-bottom: 1px solid var(--red) !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand-img {
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo-img {
+  max-height: 60px !important;
+  width: auto;
+  transition: transform 0.2s ease-in-out;
+}
+
+.nav-brand-img:hover .brand-logo-img {
+  transform: scale(1.05);
+}
+
+.nav-links {
+  display: flex;
+  gap: 3rem;
+  list-style: none;
+  align-items: center;
+}
+
+.main-nav-links a {
+  font-size: 1.25rem;
+  font-family: var(--font-display); 
+  letter-spacing: 0.1em;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+/* Mobile Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: crosshair;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--white);
+  transition: all 0.3s;
+}
+
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--black);
+  z-index: 99;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3.5rem;
+}
+
+.mobile-menu.open { 
+  display: flex; 
+}
+
+.mobile-menu a {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   4. HERO SECTION
+   ========================================================================== */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-logo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 80px;
+  gap: 1.5rem; 
+  animation: heroFadeIn 1.2s ease forwards;
+  opacity: 0;
+}
+
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-symbol { width: min(340px, 50vw) !important; }
+.hero-wordmark { width: min(750px, 90vw) !important; }
+.fallback-hide { display: none; }
+
+.hero-symbol-fallback {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 18vw, 12rem);
+  line-height: 1;
+}
+
+.hero-text-fallback {
+  font-family: 'Special Elite', cursive; 
+  font-size: clamp(3rem, 10vw, 7rem); 
+  letter-spacing: 0.3em;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.4;
+  animation: pulse 2.5s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.9; }
+}
+
+/* ==========================================================================
+   5. ABOUT SECTION (BAND MEMBERS)
+   ========================================================================== */
+.about-bio {
+  font-size: 1.3rem;
+  line-height: 1.9;
+  max-width: 100% !important;
+  border: 1px solid var(--white);
+  box-shadow: 6px 6px 0 var(--red);
+  padding: 2rem 2.5rem;
+  margin: 0 auto 6rem auto !important;
+  text-align: center;
+}
+
+.members-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  width: 100%;
+}
+
+.members-row {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  width: 100%;
+}
+
+.member-card {
+  width: clamp(200px, 22vw, 280px) !important; 
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.member-photo-wrap {
+  width: 100% !important;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+  position: relative;
+}
+
+.member-photo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.4s ease, transform 0.4s ease;
+  display: block;
+}
+
+.member-photo-wrap:hover img { transform: scale(1.04); }
+
+.member-photo-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--red);
+  opacity: 0;
+  mix-blend-mode: multiply;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.member-photo-wrap:hover::after { opacity: 0.25; }
+
+.member-photo-placeholder {
+  width: 100% !important;
+  aspect-ratio: 1 / 1;
+  border: 1px dashed rgba(255,255,255,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.25);
+  text-transform: uppercase;
+}
+
+.member-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem !important;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.member-name a {
+  color: var(--white);
+  transition: transform 0.3s ease, color 0.3s ease;
+  display: inline-block;
+}
+
+.member-name a:hover, .member-name a:active {
+  color: var(--red) !important;
+  transform: scale(1.08);
+}
+
+.member-role {
+  font-size: 0.8rem !important;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+}
+
+/* ==========================================================================
+   6. CONCERTS SECTION (TABLE & POSTERS)
+   ========================================================================== */
+#concerts:target, #concerts:active, #concerts:focus {
+  background: transparent !important; /* CORREZIONE FLUSH ROSSO */
+}
+
+.shows-list {
+  width: 100% !important;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin-bottom: 3rem;
+}
+
+.shows-list tr {
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  transition: background 0.2s;
+}
+
+/* Eliminato il vecchio background rosso sul tr hover */
+.shows-list tr:hover { 
+  background: rgba(0, 243, 255, 0.05); 
+}
+
+.shows-list td {
+  padding: 1rem 0 !important;
+  font-size: 1.15rem !important;
+  letter-spacing: 0.05em;
+}
+
+.shows-list td:nth-child(1) { color: rgba(255,255,255,0.6); width: 80px; }
+
+/* Nomi dei locali in azzurro neon */
+.shows-list td:nth-child(2) { 
+  width: 160px !important; 
+  color: var(--red) !important;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+}
+
+.shows-list td:nth-child(3) { text-align: left; }
+.shows-list td:nth-child(4) { width: 220px !important; text-align: right; white-space: nowrap; }
+
+.shows-list .ticket-link {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid var(--white);
+  padding: 0.3rem 0.8rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.shows-list .ticket-link:hover {
+  background: var(--white);
+  color: var(--black);
+  animation: none;
+}
+
+/* Nomi dei locali (colonna della tabella) */
+.shows-list td:nth-child(2) { 
+  width: 160px !important; 
+}
+
+/* Stile specifico per il link del locale */
+.shows-list td:nth-child(2) a.venue-link {
+  color: var(--red) !important;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  display: inline-block;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* Effetto al passaggio del mouse sul nome del locale */
+.shows-list td:nth-child(2) a.venue-link:hover {
+  color: var(--white) !important; /* Diventa bianco o un colore a tua scelta */
+  transform: scale(1.05);          /* Fa un leggerissimo zoom accattivante */
+  animation: none;                 /* Evita l'effetto flicker se preferisci che rimanga stabile */
+}
+
+.posters-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.poster-card {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.poster-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.poster-card:hover img { transform: scale(1.03); }
+
+.poster-placeholder {
+  aspect-ratio: 2 / 3;
+  border: 1px dashed rgba(255,255,255,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: rgba(255,255,255,0.2);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   10. POP-UP MODALE (TICKET INFO)
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  
+  /* Blocco totale: quando è chiuso NON esiste per il browser */
+  display: none; 
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Quando si clicca sul prezzo, si attiva e si mostra come flex */
+.modal-overlay.active {
+  display: flex; 
+}
+
+.modal-box {
+  background: #111;
+  border: 2px solid var(--red); 
+  padding: 2.5rem;
+  border-radius: 8px;
+  max-width: 450px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+  transform: translateY(-20px);
+  transition: transform 0.2s ease;
+}
+
+/* Effetto di comparsa fluida del box interno */
+.modal-overlay.active .modal-box {
+  transform: translateY(0);
+}
+
+.modal-box p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  color: var(--white);
+}
+
+.modal-box p a {
+  color: var(--red);
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.modal-box p a:hover {
+  color: var(--white) !important;
+}
+
+/* Pulsante Close */
+.close-btn {
+  background: transparent;
+  border: 1px solid var(--white);
+  color: var(--white);
+  padding: 0.6rem 1.5rem;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: var(--white);
+  color: var(--black);
+}
+
+/* ==========================================================================
+   7. MERCH SECTION
+   ========================================================================== */
+.merch-coming-soon-wrap {
+  width: 100%;
+  max-width: 1000px;
+  margin: 2rem auto 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.merch-placeholder-img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  opacity: 0.9;
+}
+
+/* ==========================================================================
+   8. MUSIC SECTION
+   ========================================================================== */
+.music-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+
+.single-card { display: flex; flex-direction: column; gap: 1.2rem; }
+
+.single-cover {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.single-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.4s, transform 0.4s;
+  display: block;
+}
+
+.single-cover:hover img { transform: scale(1.03); }
+
+.cover-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.15); font-size: 0.6rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+}
+
+/* Titoli dei singoli in azzurro neon */
+.single-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+  color: var(--red) !important;
+}
+
+.single-links { display: flex; flex-direction: column; gap: 0.4rem; }
+
+.single-links a {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+
+.single-links a::before { content: '→'; color: var(--red); }
+
+/* ==========================================================================
+   9. GALLERY & FOOTER
+   ========================================================================== */
+.gallery-grid { 
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.gallery-item {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  background: #0a0a0a;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.04);
+}
+
+.gallery-item span {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.932);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Stile per la scritta "Check out..." sotto la griglia */
+.gallery-follow-text {
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.952);
+}
+
+/* Stato normale dei link di Instagram e TikTok: BIANCO */
+.gallery-follow-text a.social-active-link {
+  color: var(--white) !important; 
+  font-weight: bold;
+  text-decoration: underline;
+  transition: color 0.1s ease;
+  animation: none !important; /* Disattiva l'effetto sfarfallio standard */
+}
+
+/* Quando il mouse passa sopra (hover), rimangono bianchi stabili */
+.gallery-follow-text a.social-active-link:hover {
+  color: var(--white) !important;
+  animation: none !important;
+}
+
+/* Esclusivamente QUANDO SI CLICCA (pressione del tasto): diventano AZZURRO NEON */
+.gallery-follow-text a.social-active-link:active {
+  color: var(--red) !important; /* var(--red) contiene il vostro azzurro neon */
+}
+
+/* FOOTER ---------------------------------------------*/
+
+footer {
+  border-top: 1px solid var(--red);
+  padding: 5rem 2.5rem;          
+  text-align: center;
+  background: var(--black);
+  display: flex;
+  flex-direction: column;        
+  align-items: center;
+}
+
+/* I titoli delle sezioni ("Booking & Info" e "Follow us on") in azzurro neon */
+footer .footer-section-title {
+  font-size: 1.2rem;
+  letter-spacing: 0.25em; 
+  text-transform: uppercase;     
+  color: var(--red);             /* <-- MODIFICATO: Ora brilla in azzurro neon! */
+  font-family: var(--font-display);
+}
+
+/* Identica distanza di Booking & Info per separare la mail dai blocchi circostanti */
+footer .footer-email-row {
+  margin-top: 0.8rem;
+  margin-bottom: 2.5rem;        /* Crea lo stacco perfetto prima del blocco successivo */
+}
+
+/* Titolo "Follow us on" */
+footer .footer-social-title {
+  margin-top: 0px;              /* Resettato il vecchio margine eccessivo */
+}
+
+/* Regola speciale per la mail */
+footer .footer-email {
+  text-transform: lowercase !important;
+  font-size: 1.2rem;             
+  letter-spacing: 0.05em; 
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: normal;
+  display: inline-block;
+}
+
+/* Contenitore orizzontale dei 5 link dei social */
+footer .footer-links { 
+  display: flex; 
+  justify-content: center; 
+  flex-wrap: wrap;       
+  gap: 3rem;                     
+  margin-top: 0.8rem;           /* Impostata la stessa identica distanza della mail! */
+}
+
+/* I 5 Link delle piattaforme musicali e social */
+footer a { 
+  color: rgba(255, 255, 255, 0.5); 
+  font-size: 1.2rem;             
+  letter-spacing: 0.05em;        
+  text-transform: none;          
+  font-family: var(--font-body); 
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+  text-decoration: none;
+}
+
+footer a:hover { 
+  color: var(--red) !important;  
+  transform: translateY(-3px);   
+}
+
+/* ==========================================================================
+   11. RESPONSIVE MEDIA QUERIES (OTTIMIZZAZIONE SMARTPHONE)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .main-nav-links a { font-size: 1.2rem; }
+  .nav-links { gap: 1.8rem; }
+}
+
+@media (max-width: 850px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+}
+
+@media (max-width: 900px) {
+  .posters-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .members-row { flex-wrap: wrap; gap: 2rem; }
+  .member-card { width: clamp(140px, 40vw, 200px) !important; }
+  .shows-list { table-layout: auto; }
+  .shows-list td { width: auto !important; text-align: left !important; }
+}
+
+/* ─── BLOCCO MOBILE PRINCIPALE (SMARTPHONE REALI) ─── */
+@media (max-width: 640px) {
+  /* 1. Sistemazione Navigazione Mobile */
+  nav.jogs-nav { 
+    height: 75px !important;    /* Ridotta l'altezza per non rubare schermo */
+    padding: 0 1.5rem !important; 
+  }
+  .brand-logo-img { 
+    max-height: 45px !important; /* Logo proporzionato all'hamburger */
+  }
+
+  /* 2. Ottimizzazione delle sezioni generali */
+  section { 
+    padding: 6rem 1.2rem 4rem 1.2rem; /* Riduce i vuoti enormi sopra i titoli */
+  }
+  
+  /* 3. Sistemazione Griglie (Merch, Musica, Poster e Gallery) */
+  .merch-grid, .music-grid, .posters-grid, .gallery-grid { 
+    grid-template-columns: 1fr !important; /* Tutto su una colonna pulita */
+    gap: 2rem; 
+  }
+  .gallery-item { 
+    height: auto; 
+    aspect-ratio: 1 / 1; /* Forza le foto della gallery a rimanere perfettamente quadrate */
+  }
+  .about-bio { 
+    padding: 1.5rem 1.2rem; 
+    font-size: 1.1rem; /* Testo bio leggermente più piccolo per una lettura fluida */
+    margin-bottom: 4rem !important;
+  }
+
+  /* 4. Il "Salva-Layout" per la tabella dei Concerti */
+  .shows-list {
+    display: block; 
+    width: 100% !important;
+  }
+  .shows-list tbody, .shows-list tr {
+    display: block;
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  .shows-list tr {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .shows-list td { 
+    display: block !important; /* Incolonna i dati (Data, Locale, Via, Bottone) */
+    width: 100% !important;
+    text-align: center !important; /* Centra tutto come una locandina rock */
+    padding: 0.3rem 0 !important;
+    font-size: 1rem !important; 
+  }
+  .shows-list td:nth-child(4) {
+    margin-top: 0.6rem; /* Distanzia il rettangolo del prezzo */
+  }
+  .shows-list .ticket-link {
+    display: inline-block;
+  }
+
+  /* 5. Adattamento Footer Verticale */
+  footer {
+    font-size: 0.95rem;          
+    padding: 4rem 1.5rem;
+  }
+  footer .footer-section-title {
+    font-size: 1.1rem; /* Ridimensiona leggermente i due titoli azzurro neon */
+  }
+  footer .footer-email { 
+    font-size: 0.95rem; /* Impedisce alla mail lunga di spezzarsi a metà parola */
+  }
+  footer a { 
+    font-size: 1.1rem;           
+  }
+  footer .footer-links { 
+    gap: 1.5rem;                 
+    margin-top: 1.2rem; 
+  }
+  .gallery-follow-text { 
+    font-size: 0.95rem; 
+    padding: 0 1rem; 
+  }
+}
