@@ -630,7 +630,15 @@ nav.jogs-nav {
   opacity: 0.9;
 }
 
-/* Di base su PC, la foto mobile è nascosta */
+/* Configurazione foto Merch su PC */
+.merch-desktop {
+  display: block;
+  max-width: 500px; /* Impedisce alla foto di uscire dai bordi su PC */
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
 .merch-mobile {
   display: none !important;
 }
@@ -948,7 +956,7 @@ footer a:hover {
     display: none !important;
   }
 
-  /* 5. Gestione Foto Merch e Footer in Orizzontale su Mobile */
+/* 5. Gestione Foto Merch e Footer in Orizzontale su Mobile */
   
   /* Nasconde la foto PC e mostra la foto Mobile */
   .merch-desktop {
@@ -961,7 +969,7 @@ footer a:hover {
     margin: 0 auto;
   }
 
-  /* Ripristina il footer in linea (orizzontale) come piaceva a te */
+  /* Ripristina il footer in linea (orizzontale) */
   footer {
     font-size: 0.95rem;          
     padding: 3rem 1rem;        
@@ -970,9 +978,13 @@ footer a:hover {
   }
 
   .footer-links {
-    flex-direction: row !important; /* Torna in orizzontale */
-    flex-wrap: wrap;               /* Se lo schermo è troppo stretto, va a capo elegantemente */
-    gap: 1rem;                 
-    justify-content: center;         
+    display: flex !important;
+    flex-direction: row !important; /* Forza i social affiancati */
+    flex-wrap: wrap !important;     /* Va a capo se lo schermo è stretto */
+    justify-content: center !important;
+    column-gap: 1.2rem !important;  /* Spazio largo tra un social e l'altro in orizzontale */
+    row-gap: 0.4rem !important;     /* STRINGE lo spazio verticale tra le due righe dello screenshot */
+    width: 100%;
+    line-height: 1.2 !important;
   }
 } /* <-- Questa chiude definitivamente la media query mobile generale */
