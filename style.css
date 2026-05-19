@@ -805,19 +805,31 @@ footer .footer-links {
 
 /* I 5 Link delle piattaforme musicali e social */
 footer a { 
-  color: rgba(255, 255, 255, 0.5); 
+  color: var(--white) !important; /* Forza il bianco pieno come la mail */
   font-size: 1.2rem;             
   letter-spacing: 0.05em;        
   text-transform: none;          
   font-family: var(--font-body); 
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: color 0.2s ease;
   display: inline-block;
   text-decoration: none;
 }
 
 footer a:hover { 
-  color: var(--red) !important;  
-  transform: translateY(-3px);   
+  color: var(--red) !important;  /* Diventa azzurro neon quando ci passi sopra */
+}
+
+/* Stile per la mail nel footer (Resta bianca e stabile) */
+.footer-email {
+  color: var(--white) !important;
+  text-decoration: none !important;
+  pointer-events: none; /* Impedisce fisicamente il click o il tocco del dito sulla mail */
+  user-select: all;     /* Permette comunque agli utenti di copiarla se vogliono */
+}
+.footer-email a, 
+.footer-email-row span {
+  color: var(--white) !important;
+  text-decoration: none !important;
 }
 
 /* ==========================================================================
@@ -889,50 +901,52 @@ footer a:hover {
   .shows-list tr {
     padding-bottom: 1rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; /* Centra tutto in asse */
   }
   .shows-list td { 
-    display: block !important; 
+    display: flex !important; 
     width: 100% !important;
-    text-align: center !important;      /* Centra i testi (Città, Locale, ecc.) */
-    justify-content: center !important; /* Forza la centratura dei contenitori flex */
+    justify-content: center !important; /* Centra i testi e i link orizzontalmente */
     align-items: center !important;
+    text-align: center !important;
     padding: 0.4rem 0 !important;
     font-size: 1rem !important; 
-    color: var(--white) !important;     /* Mantiene le date e i testi bianchi */
-  }
-  
-  /* Nasconde la colonna della locandina solo su smartphone */
-  .shows-list .show-poster-col {
-    display: none !important;
+    color: var(--white) !important;
   }
 
+  /* Distanzia e centra il blocco del prezzo */
   .shows-list td:nth-child(4) {
-    margin-top: 0.6rem; /* Distanzia il rettangolo del prezzo */
+    margin-top: 0.8rem !important;
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
   }
+
   .shows-list .ticket-link {
-    display: inline-block;
+    display: inline-block !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+  }
+  
+  /* Nasconde completamente la colonna della vecchia tabella e la griglia delle foto su smartphone */
+  .shows-list .show-poster-col,
+  .posters-grid {
+    display: none !important;
   }
 
   /* 5. Adattamento Footer Verticale */
   footer {
     font-size: 0.95rem;          
-    padding: 4rem 1.5rem;
+    padding: 4rem 1.5rem;        
+    background: #000;            
+    border-top: 1px solid rgba(255, 255, 255, 0.1); 
   }
-  footer .footer-section-title {
-    font-size: 1.1rem; /* Ridimensiona leggermente i due titoli azzurro neon */
+
+  .footer-links {
+    flex-direction: column;      
+    gap: 1.2rem;                 
+    align-items: center;         
   }
-  footer .footer-email { 
-    font-size: 0.95rem; /* Impedisce alla mail lunga di spezzarsi a metà parola */
-  }
-  footer a { 
-    font-size: 1.1rem;           
-  }
-  footer .footer-links { 
-    gap: 1.5rem;                 
-    margin-top: 1.2rem; 
-  }
-  .gallery-follow-text { 
-    font-size: 0.95rem; 
-    padding: 0 1rem; 
-  }
-}
+} /* <-- Questa chiude la @media query generale del mobile ed è fondamentale! */
