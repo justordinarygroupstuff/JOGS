@@ -816,6 +816,14 @@ footer .footer-links {
   margin-top: 0.8rem;           /* Impostata la stessa identica distanza della mail! */
 }
 
+/* --- SOTTOLINEATURA DISCRETA --- */
+footer .footer-links a {
+  text-decoration: underline !important;
+  text-decoration-thickness: 1px !important; /* Linea molto sottile */
+  text-underline-offset: 6px !important;     /* Più staccata dal testo per un effetto leggero */
+  text-decoration-color: rgba(255, 255, 255, 0.4) !important; /* Colore quasi trasparente */
+}
+
 /* I 5 Link delle piattaforme musicali e social */
 footer a { 
   color: var(--white) !important; /* Forza il bianco pieno come la mail */
@@ -969,22 +977,43 @@ footer a:hover {
     margin: 0 auto;
   }
 
-  /* Ripristina il footer in linea (orizzontale) */
+  /* Footer ottimizzato: Mail a capo e link sottolineati */
   footer {
     font-size: 0.95rem;          
     padding: 3rem 1rem;        
     background: #000;            
     border-top: 1px solid rgba(255, 255, 255, 0.1); 
+    width: 100%;
+    overflow-x: hidden;
+    text-align: center;
+  }
+
+  .footer-email {
+    word-break: break-all; /* La mail va a capo se troppo lunga */
+    display: block;
+    padding: 0 10px;
   }
 
   .footer-links {
     display: flex !important;
-    flex-direction: row !important; /* Forza i social affiancati */
-    flex-wrap: wrap !important;     /* Va a capo se lo schermo è stretto */
-    justify-content: center !important;
-    column-gap: 1.2rem !important;  /* Spazio largo tra un social e l'altro in orizzontale */
-    row-gap: 0.4rem !important;     /* STRINGE lo spazio verticale tra le due righe dello screenshot */
-    width: 100%;
-    line-height: 1.2 !important;
+    flex-direction: row !important;
+    flex-wrap: wrap;       /* Permette ai link di andare a capo se non ci stanno */
+    justify-content: center;
+    gap: 15px;             /* Spazio tra i link */
+    margin-top: 10px;
   }
-} /* <-- Questa chiude definitivamente la media query mobile generale */
+
+  .footer-links a {
+    text-decoration: underline !important; /* Sottolineatura obbligatoria */
+    text-underline-offset: 4px;
+    color: var(--white) !important;
+  }
+  
+  /* --- SOTTOLINEATURA DISCRETA LINK FOOTER --- */
+footer .footer-links a {
+  text-decoration: underline !important;
+  text-decoration-thickness: 1px !important;
+  text-underline-offset: 6px !important;
+  text-decoration-color: rgba(255, 255, 255, 0.4) !important;
+}
+}
