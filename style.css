@@ -633,8 +633,8 @@ nav.jogs-nav {
 /* Configurazione foto Merch su PC */
 .merch-desktop {
   display: block;
-  max-width: 500px; /* Impedisce alla foto di uscire dai bordi su PC */
   width: 100%;
+  max-width: 1000px; /* Dimensione perfetta: si allinea al contenitore del Merch senza sbordare */
   height: auto;
   margin: 0 auto;
 }
