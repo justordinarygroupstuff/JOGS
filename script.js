@@ -60,24 +60,31 @@ const openButtons = document.querySelectorAll('.open-modal-trigger');
 const modalOverlay = document.getElementById('infoModal');
 const closeModalBtn = document.getElementById('closeModalBtn');
 
-// Apri il pop-up al click sui prezzi
+// Funzione pulita per aprire il pop-up
+function openModal(e) {
+  e.preventDefault(); // Impedisce al PC e al telefono di saltare in cima alla pagina
+  if (modalOverlay) {
+    modalOverlay.classList.add('active');
+  }
+}
+
+// Collega l'evento click
 if (openButtons.length > 0 && modalOverlay) {
   openButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-      e.preventDefault(); // Blocca l'ancoraggio e le risposte del browser
-      modalOverlay.classList.add('active');
-    });
+    // Gestisce nativamente sia i computer che gli smartphone moderni
+    button.addEventListener('click', openModal);
   });
 }
 
 // Chiudi il pop-up premendo il tasto "Close"
 if (closeModalBtn && modalOverlay) {
-  closeModalBtn.addEventListener('click', () => {
+  closeModalBtn.addEventListener('click', (e) => {
+    e.preventDefault();
     modalOverlay.classList.remove('active');
   });
 }
 
-// Chiudi il pop-up anche se si clicca sullo sfondo scuro esterno
+// Chiudi il pop-up anche cliccando FUORI dal box (sullo sfondo scuro)
 if (modalOverlay) {
   modalOverlay.addEventListener('click', (e) => {
     if (e.target === modalOverlay) {

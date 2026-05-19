@@ -411,7 +411,12 @@ nav.jogs-nav {
   letter-spacing: 0.05em;
 }
 
-.shows-list td:nth-child(1) { color: rgba(255,255,255,0.6); width: 80px; }
+/* Date dei concerti: ora in bianco pieno per risaltare al massimo */
+.shows-list td:nth-child(1) { 
+  color: var(--white) !important; 
+  font-weight: bold;
+  width: 80px; 
+}
 
 /* Nomi dei locali in azzurro neon */
 .shows-list td:nth-child(2) { 
@@ -509,7 +514,7 @@ nav.jogs-nav {
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(5px);
   
-  /* Blocco totale: quando è chiuso NON esiste per il browser */
+  /* Blocco totale quando è chiuso */
   display: none; 
   justify-content: center;
   align-items: center;
@@ -518,15 +523,15 @@ nav.jogs-nav {
   transition: opacity 0.2s ease;
 }
 
-/* Quando si clicca sul prezzo, si attiva e si mostra come flex */
 .modal-overlay.active {
-  display: flex; 
+  display: flex;
+  opacity: 1;
 }
 
 .modal-box {
   background: #111;
   border: 2px solid var(--red); 
-  padding: 2.5rem;
+  padding: 3rem 2.5rem 2.5rem 2.5rem; /* Più spazio in alto per la X */
   border-radius: 8px;
   max-width: 450px;
   width: 90%;
@@ -534,45 +539,76 @@ nav.jogs-nav {
   box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
   transform: translateY(-20px);
   transition: transform 0.2s ease;
+  position: relative; /* Necessario per posizionare la X rispetto al box */
 }
 
-/* Effetto di comparsa fluida del box interno */
 .modal-overlay.active .modal-box {
   transform: translateY(0);
+}
+
+/* Titolo "Ticket Info" reso più grande */
+.modal-box h3 {
+  color: var(--red);
+  text-transform: uppercase;
+  font-size: 1.8rem; /* Ingrandito rispetto a prima */
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.1em;
+  font-family: var(--font-display);
 }
 
 .modal-box p {
   font-size: 1rem;
   line-height: 1.6;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   color: var(--white);
 }
 
-.modal-box p a {
-  color: var(--red);
-  text-decoration: underline;
-  font-weight: bold;
+/* Contenitore per isolare e centrare il bottone da solo */
+.modal-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
-.modal-box p a:hover {
-  color: var(--white) !important;
-}
-
-/* Pulsante Close */
-.close-btn {
+/* Bottone Instagram azzurro neon */
+.modal-instagram-btn {
+  display: inline-block;
   background: transparent;
-  border: 1px solid var(--white);
-  color: var(--white);
-  padding: 0.6rem 1.5rem;
-  font-family: var(--font-display);
+  color: var(--red);
+  border: 1px solid var(--red);
+  padding: 0.8rem 2rem; /* Leggermente più cicciotto e importante */
+  font-family: var(--font-body);
   text-transform: uppercase;
-  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  font-weight: bold;
   transition: all 0.2s ease;
 }
 
-.close-btn:hover {
-  background: var(--white);
-  color: var(--black);
+.modal-instagram-btn:hover {
+  background: var(--red);
+  color: var(--black) !important;
+  box-shadow: 0 0 15px var(--red);
+}
+
+/* Nuova X di chiusura in alto a destra */
+.close-btn-x {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 2rem; /* X bella grande e visibile */
+  cursor: pointer;
+  line-height: 1;
+  padding: 5px;
+  transition: color 0.2s ease;
+}
+
+.close-btn-x:hover {
+  color: var(--red); /* Diventa azzurro neon quando ci passi sopra */
 }
 
 /* ==========================================================================
@@ -840,7 +876,7 @@ footer a:hover {
     margin-bottom: 4rem !important;
   }
 
-  /* 4. Il "Salva-Layout" per la tabella dei Concerti */
+/* 4. Il "Salva-Layout" per la tabella dei Concerti */
   .shows-list {
     display: block; 
     width: 100% !important;
@@ -855,12 +891,21 @@ footer a:hover {
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   }
   .shows-list td { 
-    display: block !important; /* Incolonna i dati (Data, Locale, Via, Bottone) */
+    display: block !important; 
     width: 100% !important;
-    text-align: center !important; /* Centra tutto come una locandina rock */
-    padding: 0.3rem 0 !important;
+    text-align: center !important;      /* Centra i testi (Città, Locale, ecc.) */
+    justify-content: center !important; /* Forza la centratura dei contenitori flex */
+    align-items: center !important;
+    padding: 0.4rem 0 !important;
     font-size: 1rem !important; 
+    color: var(--white) !important;     /* Mantiene le date e i testi bianchi */
   }
+  
+  /* Nasconde la colonna della locandina solo su smartphone */
+  .shows-list .show-poster-col {
+    display: none !important;
+  }
+
   .shows-list td:nth-child(4) {
     margin-top: 0.6rem; /* Distanzia il rettangolo del prezzo */
   }
